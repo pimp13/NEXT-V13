@@ -1,4 +1,7 @@
 //^ LAYOUT.TSX
+import "./advanced-css/styles.css"
+import "./globals.css";
+
 import type { Metadata, Viewport } from "next";
 import { Toaster } from "react-hot-toast";
 import { cookies } from "next/headers";
@@ -6,9 +9,6 @@ import { PropsWithChildren } from "react";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { ThemeProvider } from "@/components/theme/theme-provider";
 import { SWRConfig } from "swr";
-
-import "./advanced-css/styles.css"
-import "./globals.css";
 
 
 

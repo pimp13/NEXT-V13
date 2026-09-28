@@ -1,13 +1,9 @@
-import { Input } from "@/components/ui/input";
+import { UserPageTab } from './components/Tabs/PageTab';
 
 export default function Page() {
     return (
         <section className="container min-h-screen mx-auto">
-            <div>
-                <h1>Hello world</h1>
-            </div>
-
-            <Input />
+            <UserPageTab />
         </section>
     )
 }
