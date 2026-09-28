@@ -239,8 +239,9 @@ const ReactHookFormV8 = () => {
                 render={({ field }) => (
                   <div className='flex flex-col gap-1'>
                     <div className='flex flex-row-reverse gap-2'>
-                      <Label>Accept Terms And Privacy and Policy Rules</Label>
+                      <Label htmlFor="acceptTerms">Accept Terms And Privacy and Policy Rules</Label>
                       <Checkbox
+                        id="acceptTerms"
                         onCheckedChange={field.onChange}
                         className='accent-cyan-500'
                         value={field.value}

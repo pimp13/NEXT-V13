@@ -140,7 +140,7 @@ const ReactHookFormPage = () => {
             {...register("hasPhone")}
           />
           <Label className='mt-0.5'>Has PhoneNumber ?</Label>
-          <p>{hasPhone?.toString()}</p>
+          <p>{hasPhone ? 'Yes' : 'No'}</p>
         </div>
         {hasPhone && (
           <div className='relative inset-0 mt-2'>
