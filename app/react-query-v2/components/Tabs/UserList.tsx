@@ -87,14 +87,14 @@ export function UserList() {
               </TableRow>
             </TableHeader>
 
-            <TableBody>
-              {users.length === 0 ? (
+            <TableBody className="text-black">
+              {!users || users.length === 0 ? (
                 <TableRow>
                   <TableCell
                     colSpan={5}
                     className="h-24 text-center"
                   >
-                    No users found.
+                    No users found..
                   </TableCell>
                 </TableRow>
               ) : (
@@ -127,8 +127,8 @@ export function UserList() {
                     <TableCell>
                       {user.createdAt
                         ? new Date(
-                            user.createdAt
-                          ).toLocaleDateString("en-US")
+                          user.createdAt
+                        ).toLocaleDateString("en-US")
                         : "-"}
                     </TableCell>
                   </TableRow>
@@ -138,6 +138,6 @@ export function UserList() {
           </Table>
         </div>
       </CardContent>
-    </Card>
+    </Card >
   );
 }

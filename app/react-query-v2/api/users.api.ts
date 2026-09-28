@@ -1,6 +1,7 @@
 import type { CreateUserFormValues } from "../schema/users.schema";
+import axios from "axios";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000/api';
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:2000/api';
 
 export interface User {
   id: string;
@@ -16,7 +17,7 @@ export interface User {
 export async function createUser(
   data: CreateUserFormValues
 ): Promise<User> {
-  const response = await fetch(`${API_URL}/users`, {
+  const response = await fetch(`${API_URL}/v1/users`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -37,18 +38,11 @@ export async function createUser(
 }
 
 export async function getUsers(): Promise<User[]> {
-  const response = await fetch(`${API_URL}/users`, {
-    method: "GET",
-    credentials: "include",
-  });
-
-  const result = await response.json();
-
-  if (!response.ok) {
-    throw new Error(
-      result?.message || "خطا در دریافت کاربران"
-    );
+  const res = await axios.get(`${API_URL}/v1/users`);
+  if (res.status !== 200) {
+    throw new Error(res?.data?.message || res?.statusText || 'خطا در دریافت کاربران');
   }
 
-  return result.data;
+  return res.data.data;
+
 }
