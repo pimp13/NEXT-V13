@@ -1,0 +1,23 @@
+name: next-v2-app-dev
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: next-v2-app:dev
+    container_name: next_v2_web_dev
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "4200:4200"
+    volumes:
+      # Mount کردن سورس کد برای Hot Reload
+      - .:/app
+      # محافظت از node_modules داخل کانتینر
+      - /app/node_modules
+      # (اختیاری) برای Turbopack
+      - /app/.next
+    restart: unless-stopped
