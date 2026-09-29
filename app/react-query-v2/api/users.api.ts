@@ -1,3 +1,4 @@
+import { EditUserSchemaType } from "../schema/edit-user.schema";
 import type { CreateUserFormValues } from "../schema/users.schema";
 import axios from "axios";
 
@@ -37,6 +38,15 @@ export async function createUser(
   return result.data;
 }
 
+
+export async function updateUser(userId: number, data: EditUserSchemaType) {
+  const resp = await axios.patch(`${API_URL}/v1/users/${userId}`, data);
+  if (resp.status !== 200) {
+    throw new Error(resp.data?.message || 'خطا در انجام عملیات');
+  }
+  return resp.data?.data;
+}
+
 export async function getUsers(): Promise<User[]> {
   const res = await axios.get(`${API_URL}/v1/users`);
   if (res.status !== 200) {
@@ -46,3 +56,14 @@ export async function getUsers(): Promise<User[]> {
   return res.data.data;
 
 }
+
+export async function getUsersById(id: number): Promise<User> {
+  const res = await axios.get(`${API_URL}/v1/users/${id}`);
+  if (res.status !== 200) {
+    throw new Error(res?.data?.message || res?.statusText || 'خطا در دریافت کاربران');
+  }
+
+  return res.data.data;
+
+}
+

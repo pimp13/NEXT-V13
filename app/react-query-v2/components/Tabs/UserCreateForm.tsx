@@ -236,12 +236,14 @@ export function UserCreateForm() {
               createMutation.isPending
             }
           >
-            {createMutation.isPending
+            {createMutation.isPending || isSubmitting
               ? "Creating..."
               : "Create User"}
           </Button>
         </form>
+
       </CardContent>
+
     </Card>
   );
 }

@@ -20,8 +20,21 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { getUsers } from "../../api/users.api";
+import { BeautifulModal } from "@/components/BeautifulModal";
+import { useModalStore } from "../../store/useModalStore";
+import { Button } from "@/components/ui/button";
+import { EditUserForm } from "./EditUserForm";
 
 export function UserList() {
+  const open = useModalStore((state) => state.open);
+  const close = useModalStore((state) => state.close);
+  const openModal = useModalStore(
+    (state) => state.openModal
+  );
+  const selectedId = useModalStore(
+    (state) => state.selectedId
+  );
+
   const {
     data: users = [],
     isLoading,
@@ -84,6 +97,10 @@ export function UserList() {
                 <TableHead>
                   Created At
                 </TableHead>
+
+                <TableHead>
+                  Action
+                </TableHead>
               </TableRow>
             </TableHeader>
 
@@ -131,6 +148,14 @@ export function UserList() {
                         ).toLocaleDateString("en-US")
                         : "-"}
                     </TableCell>
+
+                    <TableCell>
+                      <Button
+                        onClick={() => open("edit-user", user.id)}
+                      >
+                        Edit User
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))
               )}
@@ -138,6 +163,8 @@ export function UserList() {
           </Table>
         </div>
       </CardContent>
+
+      <EditUserForm userId={selectedId} openModal={openModal} close={close} />
     </Card >
   );
 }
