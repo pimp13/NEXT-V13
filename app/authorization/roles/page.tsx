@@ -42,6 +42,7 @@ import { CreateRoleForm } from "./_components/CreateRoleForm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteRoleById, getAllRoles } from "./api/role.api";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 
 export default function RolesPage() {
@@ -136,10 +137,18 @@ export default function RolesPage() {
             </p>
           </div>
 
-          <Button onClick={() => open('create-role')}>
-            <Plus className="mr-2 size-4" />
-            Create Role
-          </Button>
+          <div className="flex items-center gap-6">
+            <Link href="/authorization/permissions" className="underline">
+              <Button>Permissions</Button>
+            </Link>
+            <Link href="/react-query-v2" className="underline">
+              <Button>Users</Button>
+            </Link>
+            <Button onClick={() => open('create-role')}>
+              <Plus className="mr-2 size-4" />
+              Create Role
+            </Button>
+          </div>
         </div>
 
         {/* Content */}

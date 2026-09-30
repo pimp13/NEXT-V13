@@ -10,6 +10,8 @@ import {
 import { UserCreateForm } from "./UserCreateForm";
 import { UserList } from "./UserList";
 import { EditUserForm } from "./EditUserForm";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export function UserPageTab() {
 
@@ -28,6 +30,10 @@ export function UserPageTab() {
 
         <Tabs defaultValue="create" className="w-full">
           <TabsList className="mb-6">
+            <Link href="/authorization/roles" className="underline">
+              <Button>Roles</Button>
+            </Link>
+
             <TabsTrigger value="create">
               <span className="text-stone-50">Create User</span>
             </TabsTrigger>
