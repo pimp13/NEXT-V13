@@ -3,7 +3,9 @@ import { create } from "zustand";
 export type ModalType =
   | "create-user"
   | "edit-user"
-  | "delete-user";
+  | "delete-user"
+  | "create-role";
+
 
 export type ModalStore = {
   openModal: ModalType | null;

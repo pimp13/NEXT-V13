@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   Card,
@@ -19,11 +19,12 @@ import {
 } from "@/components/ui/table";
 
 import { Badge } from "@/components/ui/badge";
-import { getUsers } from "../../api/users.api";
+import { deleteUserById, getUsers } from "../../api/users.api";
 import { BeautifulModal } from "@/components/BeautifulModal";
 import { useModalStore } from "../../store/useModalStore";
 import { Button } from "@/components/ui/button";
 import { EditUserForm } from "./EditUserForm";
+import toast from "react-hot-toast";
 
 export function UserList() {
   const open = useModalStore((state) => state.open);
@@ -34,6 +35,7 @@ export function UserList() {
   const selectedId = useModalStore(
     (state) => state.selectedId
   );
+  const queryClient = useQueryClient();
 
   const {
     data: users = [],
@@ -44,6 +46,26 @@ export function UserList() {
     queryKey: ["users"],
     queryFn: getUsers,
   });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteUserById,
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["users"],
+      });
+    },
+  });
+
+  const deleteUser = async (id: string | number) => {
+    try {
+      deleteMutation.mutate(Number(id));
+      toast.success('کاربر مورد نظر باموفقیت حذف شد');
+    } catch (err: any) {
+      console.log('failed', err);
+      toast.error(err || 'خطا در برقراری با سرور');
+    }
+  }
 
   if (isLoading) {
     return (
@@ -154,6 +176,14 @@ export function UserList() {
                         onClick={() => open("edit-user", user.id)}
                       >
                         Edit User
+                      </Button>
+
+                      <Button
+                        onClick={() => deleteUser(user.id)}
+                        variant="destructive"
+                        className="ml-2"
+                      >
+                        Delete User
                       </Button>
                     </TableCell>
                   </TableRow>

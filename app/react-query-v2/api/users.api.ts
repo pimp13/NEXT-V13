@@ -54,7 +54,6 @@ export async function getUsers(): Promise<User[]> {
   }
 
   return res.data.data;
-
 }
 
 export async function getUsersById(id: number): Promise<User> {
@@ -64,6 +63,13 @@ export async function getUsersById(id: number): Promise<User> {
   }
 
   return res.data.data;
-
 }
 
+
+export async function deleteUserById(id:number): Promise<any> {
+  const res= await axios.delete(`${API_URL}/v1/users/${id}`);
+  if (res.status !== 200) {
+    throw new Error(res?.data?.message || res?.statusText || 'خطا در دریافت کاربران');
+  }
+  return res.data.data;
+}
